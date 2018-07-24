@@ -1,6 +1,8 @@
-docker build -t docker-mysql .
+mvn clean package
 
-docker run -d --name mysqltest -p 3306:3306 -d docker-mysql
+docker build -t mysql0725:v3 .
+
+docker build -t java:test .
 
 
 

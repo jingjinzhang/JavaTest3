@@ -10,7 +10,15 @@ public class App
         Connection connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://192.168.99.100:3306/sakila","root","");
+            String ip = System.getenv("IP");
+            String port=System.getenv("PORT");
+            //String ip = "127.18.0.1";
+            //String port = "3306";
+            //String dbname = "sakila";
+            String dbname=System.getenv("DBNAME");
+            String username = System.getenv("USERNAME");
+            String password=System.getenv("PASSWORD");
+            connection = DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+dbname+"?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true","root","123456");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

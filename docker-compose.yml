@@ -1,18 +1,29 @@
 version: "3"
 services:
-  nginx-0:
-    container_name: nginx-0
-    image: registry.saas.hand-china.com/tools/nginx:latest
-    hostname: nginx-0
+  mysql:
+    container_name: mysql
+    image: mysql0725:v3
+    hostname: mysql
     ports:
-    -  "8089:80"
-    env: 
-    - "MYSQL_ROOT_PASSWORD"="123456"
-    - "mysql_ip"="123"
-  nginx-1:
-    container_name:nginx-1
-    image:registry.saas.hand-china.com/tools/nginx:latest
-    hostname:nginx-1
-    ports:
-    -  "8081:80"
-
+    - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+    - ./mysql/mysql_data:/var/lib/mysql
+    - ./mysql/mysql_db.cnf:/etc/mysql/conf.d/mysql_db.cnf
+    expose:
+    - "3306"
+  java:
+    container_name: java
+    image: java:test
+    hostname: default
+    depends_on:
+      - "mysql"
+    environment:
+       USERNAME: root
+       PASSWORD: 123456
+       IP: mysql
+       DBNAME: "sakila"
+       PORT: "3306"
+       COUNTRYID: 87
+       CUSTOMERID: 87

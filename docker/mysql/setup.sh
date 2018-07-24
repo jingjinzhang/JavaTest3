@@ -1,8 +1,4 @@
 #!/bin/bash
-
-service mysql start
-
-mysql < /mysql/sakila-schema.sql;
-
-mysql < /mysql/sakila-data.sql;
-
+mysql -uroot -p$MYSQL_ROOT_PASSWORD <<EOF
+source $WORK_PATH/$FILE_0;
+source $WORK_PATH/$FILE_1;
